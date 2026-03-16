@@ -1,0 +1,9 @@
+v4:
+188.89.106.133 == rammelbak
+46.224.181.108 == trekbak
+
+v6:
+2a01:4f8:c0c:4b0b::1/64 == trekbak
+2a01:4f8:c0c:4b0b::2/128 == rammelbak
+2a01:4f8:c0c:4b0b::3/128 == laptop
+2a01:4f8:c0c:4b0b::5/128 == desktop
