@@ -69,7 +69,6 @@
           <li><strong>Matrix homeserver:</strong> <code>matrix.koenoostveen.nl</code></li>
           <li><strong>Copyparty file server:</strong> <code>files.koenoostveen.nl</code></li>
           <li><strong>Grafana dashboard:</strong> <code>grafana.koenoostveen.nl</code></li>
-          <li><strong>TA Scheduling tool:</strong> <code>ta.koenoostveen.nl</code></li>
           <li><strong>Email:</strong> <code>mx.koenoostveen.nl</code> (<code>postmaster@koenoostveen.nl</code> for inquiries)</li>
         </ul>
       </section>
@@ -158,15 +157,67 @@ import SiteHeader from '@/components/SiteHeader.vue'
   align-items: center;
   gap: 5pt;
   font-size: normal;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.email-part,
+.handle,
+.contact-item {
+  min-width: 0;
 }
 
 .email-part {
   opacity: .3;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .map-text {
   font-size: 0.9rem;
   opacity: 0.75;
+}
+
+@media (max-width: 640px) {
+  .contact {
+    gap: 0.55rem;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.2rem;
+    padding: 0.4rem 0.25rem;
+    border-radius: 8px;
+    background: rgba(27, 55, 83, 0.55);
+  }
+
+  .contact-item strong,
+  .contact-item .handle,
+  .contact-item .email {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .contact-item .handle,
+  .contact-item .email {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .layout {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .section {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
 }
 
 .maps {

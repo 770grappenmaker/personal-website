@@ -1,5 +1,9 @@
 @import url("@/fonts.scss");
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --bg: #0f172a;
   --bg-alt: #0a1228;
@@ -29,7 +33,6 @@ body {
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
   color: var(--text);
   margin: 0;
-  overflow-y: hidden;
 }
 
 h1, h2 {
@@ -101,10 +104,83 @@ a:focus-visible,
   text-decoration: underline;
   transition: outline .2s ease;
 }
+
+/* Prevent horizontal overflow on mobile */
+html,
+body {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.header {
+  flex-wrap: wrap;
+}
+
+.identity,
+.nav {
+  min-width: 0;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.nav .p-button {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 0.65rem 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .tagline {
+    font-size: 0.85rem;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .nav .p-button {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .p-card,
+  .p-card-title,
+  .p-card-content,
+  .section {
+    border-radius: 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    box-shadow: none;
+    background: transparent;
+    margin: 0;
+  }
+
+  .section {
+    padding: 0.75rem 0.75rem;
+    border-color: var(--border);
+  }
+}
+
 .section code {
   background: var(--code-bg);
   color: var(--code-color);
   border: 1px solid var(--code-border);
   padding: 0.16rem 0.33rem;
   border-radius: 5px;
+  display: inline-block;
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }

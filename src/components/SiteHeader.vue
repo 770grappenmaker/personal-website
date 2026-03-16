@@ -7,7 +7,6 @@
     <nav class="nav">
       <Button as="a" href="/cv.pdf" label="cv" text />
       <Button as="a" href="https://webmail.koenoostveen.nl" label="wm" text />
-      <Button as="a" href="https://ta.koenoostveen.nl" label="ta" text />
       <Button as="a" href="https://files.koenoostveen.nl" label="fs" text />
       <Button as="a" href="https://github.com/770grappenmaker" label="gh" text />
     </nav>
@@ -49,5 +48,13 @@ import Button from 'primevue/button'
   font-size: 1rem;
   opacity: 0.85;
   color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+  .header {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
 }
 </style>
