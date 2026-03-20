@@ -169,6 +169,9 @@ body {
   .section {
     padding: 0.75rem 0.75rem;
     border-color: var(--border);
+    border-radius: 0 !important;
+    border-left: none  !important;
+    border-right: none !important;
   }
 }
 

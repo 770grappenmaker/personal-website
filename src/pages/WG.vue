@@ -6,24 +6,35 @@
                 <a href="/wg">raw</a>
                 <small class="refreshing">refreshing in {{ timeLeft }}s</small>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>hostname</th>
-                        <th>addresses</th>
-                        <th>last handshake</th>
-                        <th>public key</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="{ pkey, peer } in peers">
-                        <td>{{ findAlias(peer.ips) }}</td>
-                        <td>{{ peer.ips.join(", ") }}</td>
-                        <td>{{ formatAgo(peer.handshake) }}</td>
-                        <td>{{ pkey }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>hostname</th>
+                            <th>addresses</th>
+                            <th>last handshake</th>
+                            <th>public key</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ peers.length > 0 ? UP_CHAR : DOWN_CHAR }}</td>
+                            <td>trekbak</td>
+                            <td>10.0.0.0/24, 2a01:4f8:c0c:4b0b::/64</td>
+                            <td>-</td>
+                            <td>BeuSlGVS5CYYc5bHPevXfMnOYZEbO7ntV3z5e+08QE4=</td>
+                        </tr>
+                        <tr v-for="{ pkey, peer } in peers">
+                            <td>{{ isUp(peer) ? UP_CHAR : DOWN_CHAR }}</td>
+                            <td>{{ findAlias(peer.ips) }}</td>
+                            <td>{{ peer.ips.join(", ") }}</td>
+                            <td>{{ formatAgo(peer.handshake) }}</td>
+                            <td>{{ pkey }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </Page>
 </template>
@@ -65,13 +76,27 @@ th {
     padding: 8px;
 }
 
-td:nth-child(3), th:nth-child(3) {
+td:nth-child(3),
+th:nth-child(3) {
     width: 20%;
+    white-space: nowrap;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
+}
+
+.table-container {
+    overflow-x: scroll;
+}
+
+@media (max-width: 640px) {
+    .table-container {
+        width: calc(100% + 2.3rem);
+        margin-left: -1.15rem;
+        margin-right: -1.15rem;
+    }
 }
 </style>
 
@@ -80,11 +105,15 @@ import Page from '@/components/Page.vue';
 import { computed, onMounted, onUnmounted, ref, type Ref } from 'vue';
 
 const WG_PATH = import.meta.env.DEV ? "/wg-backend" : "/wg";
+const UP_CHAR = "🟢";
+const DOWN_CHAR = "🔴";
 
 interface Peer {
     handshake: number;
     ips: string[];
 }
+
+const isUp = (peer: Peer) => (Date.now() / 1000 - peer.handshake) <= 60 * 3;
 
 interface Response {
     peers: Record<string, Peer>;

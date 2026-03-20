@@ -34,11 +34,5 @@ import SiteHeader from './SiteHeader.vue';
         padding-left: 0;
         padding-right: 0;
     }
-
-    .section {
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-    }
 }
 </style>
