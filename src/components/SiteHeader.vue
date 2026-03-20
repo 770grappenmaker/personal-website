@@ -9,6 +9,7 @@
       <Button as="a" href="https://webmail.koenoostveen.nl" label="wm" text />
       <Button as="a" href="https://files.koenoostveen.nl" label="fs" text />
       <Button as="a" href="https://github.com/770grappenmaker" label="gh" text />
+      <Button as="a" href="/wg-web/" label="wg" text />
     </nav>
   </header>
 </template>
