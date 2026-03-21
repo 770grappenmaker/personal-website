@@ -15,22 +15,28 @@
                             <th>addresses</th>
                             <th>last handshake</th>
                             <th>public key</th>
+                            <th>rx</th>
+                            <th>tx</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>{{ peers.length > 0 ? UP_CHAR : DOWN_CHAR }}</td>
                             <td>trekbak</td>
-                            <td>10.0.0.0/24, 2a01:4f8:c0c:4b0b::/64</td>
+                            <td>10.0.0.0/24<br>2a01:4f8:c0c:4b0b::/64</td>
                             <td>-</td>
                             <td>BeuSlGVS5CYYc5bHPevXfMnOYZEbO7ntV3z5e+08QE4=</td>
+                            <td>-</td>
+                            <td>-</td>
                         </tr>
                         <tr v-for="{ pkey, peer } in peers">
                             <td>{{ isUp(peer) ? UP_CHAR : DOWN_CHAR }}</td>
                             <td>{{ findAlias(peer.ips) }}</td>
-                            <td>{{ peer.ips.join(", ") }}</td>
+                            <td>{{ peer.ips.join("\n") }}</td>
                             <td>{{ formatAgo(peer.handshake) }}</td>
                             <td>{{ pkey }}</td>
+                            <td>{{ formatTransfer(peer.rx) }}</td>
+                            <td>{{ formatTransfer(peer.tx) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -78,7 +84,12 @@ th {
 
 td:nth-child(3),
 th:nth-child(3) {
-    width: 20%;
+    white-space: pre-line;
+}
+
+td:nth-child(4),
+th:nth-child(4) {
+    width: 15%;
     white-space: nowrap;
 }
 
@@ -111,6 +122,8 @@ const DOWN_CHAR = "🔴";
 interface Peer {
     handshake: number;
     ips: string[];
+    rx: number;
+    tx: number;
 }
 
 const isUp = (peer: Peer) => (Date.now() / 1000 - peer.handshake) <= 60 * 3;
@@ -137,7 +150,7 @@ const aliases = new Map<string, string>();
 const findAlias = (ips: string[]) => {
     const match = ips.find(x => aliases.has(x));
     return match ? aliases.get(match) : "";
-}
+};
 
 const fetchWireguard = () => {
     lastFetched.value = Date.now();
@@ -151,7 +164,7 @@ const displayFixed = (int: number, width: number) => {
     const repr = int.toFixed(0);
     const spacing = "\xa0".repeat(Math.max(0, width - repr.length));
     return spacing + repr;
-}
+};
 
 const formatAgo = (ts: number) => {
     const tss = Math.round(Date.now() / 1000 - ts);
@@ -172,6 +185,17 @@ const formatAgo = (ts: number) => {
     if (minutes > 0 && res.length < 2) res.push(`${minutes} minute` + (minutes == 1 ? "" : "s"));
     if (seconds > 0 && res.length < 2) res.push(`${seconds} second` + (seconds == 1 ? "" : "s"));
     return res.length > 0 ? res.join(", ") : "now";
+};
+
+const formatTransfer = (b: number) => {
+    if (b <= 0) return "nothing.";
+    
+    const exp = Math.max(0, Math.log2(b));
+    if (exp >= 30) return (b / (1 << 30)).toFixed(2) + " GiB";
+    if (exp >= 20) return (b / (1 << 20)).toFixed(2) + " MiB";
+    if (exp >= 10) return (b / (1 << 10)).toFixed(2) + " KiB";
+    if (exp >= 8) return (b / (1 << 10)).toFixed(2) + " KiB";
+    return b + " B";
 };
 
 let timer: number | undefined;
