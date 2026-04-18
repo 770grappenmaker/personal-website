@@ -1,13 +1,18 @@
+                   hostname               service
     desktop.koenoostveen.nl
       files.koenoostveen.nl               copyparty (https://github.com/9001/copyparty)
     grafana.koenoostveen.nl
        imap.koenoostveen.nl               dovecot
+     immich.koenoostveen.nl               immich (https://immich.app/)
             koenoostveen.nl               personal website
      laptop.koenoostveen.nl
        mail.koenoostveen.nl               postfixadmin
      matrix.koenoostveen.nl               continuwuity (https://continuwuity.org/)
          mx.koenoostveen.nl               mail service
-     rspamd.koenoostveen.nl
+  rammelbak.koenoostveen.nl               primary server at home
+     rspamd.koenoostveen.nl               rspamd
        smtp.koenoostveen.nl               postfix
+    trekbak.koenoostveen.nl               backup vps
+     uptime.koenoostveen.nl               uptime-kuma
     webmail.koenoostveen.nl               roundcube
         www.koenoostveen.nl               personal website but lame domain name
