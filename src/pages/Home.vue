@@ -55,24 +55,6 @@
             rel="noopener">synacor-challenge</a>: solutions, debugger and VM for the custom architecture.</li>
       </ul>
     </section>
-
-    <section id="services" class="section services">
-      <div class="infra-outer">
-        <h2>infra</h2>
-        <div class="maps">
-          <a href="/net" class="map-text">net</a>
-          <a href="/map" class="map-text">map</a>
-        </div>
-      </div>
-      <p>Personal infrastructure, serves mostly as a reference for myself</p>
-      <ul>
-        <li><strong>Matrix homeserver:</strong> <code>matrix.koenoostveen.nl</code></li>
-        <li><strong>Copyparty file server:</strong> <code>files.koenoostveen.nl</code></li>
-        <li><strong>Grafana dashboard:</strong> <code>grafana.koenoostveen.nl</code></li>
-        <li><strong>Email:</strong> <code>mx.koenoostveen.nl</code> (<code>postmaster@koenoostveen.nl</code> for
-          inquiries)</li>
-      </ul>
-    </section>
   </Page>
 </template>
 
